@@ -24,12 +24,13 @@ def lambda_handler(event, context):
     logger.setLevel(logging.INFO)
 
     try:
-        kintone_url = event['kintone_url']
+        kintone_url = event.get('kintone_url','')
         message_template = u':telephone:申込受付レコードを作成しました\n{url}'
         sendMessage(
             message_template.format(url=kintone_url),
             '#general'
         )
+        return event
 
     except Exception as e:
         sendMessage(traceback.format_exc(), '#general')
