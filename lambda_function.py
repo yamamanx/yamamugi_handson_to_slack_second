@@ -10,6 +10,7 @@ import traceback
 
 slack_url = os.environ['SLACK_URL']
 log_level = os.environ.get('LOG_LEVEL', 'INFO')
+channel = os.environ.get('CHANNEL', '#general')
 
 logger = logging.getLogger()
 
@@ -37,7 +38,7 @@ def lambda_handler(event, context):
         message_template = u':telephone:申込受付レコードを作成しました\n{url}'
         send_message(
             message_template.format(url=kintone_url),
-            '#general'
+            channel
         )
         return event
 
